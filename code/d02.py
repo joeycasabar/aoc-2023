@@ -24,7 +24,7 @@ def parse_game(line):
     results = [s.strip() for s in input[1].split(';')]
     print(f"game: {game_number}, subsets: {len(results)}")
     # print(f"results: {results}")
-    if parse_results(results):
+    if check_max(convert_results(results)):
         return 0
     else:
         return game_number
@@ -33,9 +33,8 @@ def parse_game(line):
 # each subset is a comma-separated strong of number-color pairs
 
 
-def parse_results(results):
+def check_max(subsets):
     print(f"checking game")
-    subsets = convert_results(results)
     fault = False
     for subset in subsets:
         if int(subset.get('red', 0)) > max_r or int(subset.get('green', 0)) > max_g or int(subset.get('blue', 0)) > max_b:
