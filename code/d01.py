@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
 
+
+count = 1
+
+
 def find_numbers(line):
-    print(line)
-    if any(substring in line for substring in words):
-        print("found words")
+    print(f"parsing line {count}: {line}")
+    for digit, word in replacements:
+        if word in line:
+            print(f"replacing {word} with {digit}")
+            newline = line.replace(word, str(digit))
+            print(f"old: {line}, new: {newline}")
+            line = newline
+
     # filter out only the digits
     numbers = ''.join(filter(str.isdigit, line))
     # get the first digit in the list of digits
@@ -27,8 +36,16 @@ def find_numbers(line):
 # make a variable to hold our final sum
 sum = 0
 
-words = [
-    'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'
+replacements = [
+    (1, 'one'),
+    (2, 'two'),
+    (3, 'three'),
+    (4, 'four'),
+    (5, 'five'),
+    (6, 'six'),
+    (7, 'seven'),
+    (8, 'eight'),
+    (9, 'nine')
 ]
 
 
@@ -37,6 +54,7 @@ with open('./inputs/d01.txt', 'r') as input:
     for line in input:
         # show the raw input for debugging purposes
         sum += find_numbers(line)
+        count += 1
 
 # print the final sum
 print(f"sum: {sum}")
