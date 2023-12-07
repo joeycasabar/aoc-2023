@@ -4,9 +4,6 @@ import argparse
 symbols = "#$%&*+-/=@"
 numbers = "0123456789"
 
-max_height = 140
-max_width = 140
-
 parser = argparse.ArgumentParser(
     prog='Advent Of Code - Day 3',
     description="Gear Ratios"
@@ -20,7 +17,8 @@ args = parser.parse_args()
 def get_locations(map, charset):
     locations = []
     for c in charset:
-        for y in range(0, 140, 1):
+        height = len(map[0])
+        for y in range(0, height, 1):
             row = map[y]
             if c in row:
                 x = row.index(c)
