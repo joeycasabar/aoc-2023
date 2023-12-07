@@ -3,8 +3,8 @@
 import argparse
 
 parser = argparse.ArgumentParser(
-    prog='Advent Of Code - Day 1',
-    description="calculate calibration values"
+    prog='Advent Of Code - Day 2',
+    description="Cube Conundrum"
 )
 
 parser.add_argument('input')
