@@ -23,11 +23,12 @@ def parse_game(line):
     game_number = int(''.join(filter(str.isdigit, input[0])))
     results = [s.strip() for s in input[1].split(';')]
     print(f"game: {game_number}, subsets: {len(results)}")
+    return get_min_power(convert_results(results))
     # print(f"results: {results}")
-    if check_max(convert_results(results)):
-        return 0
-    else:
-        return game_number
+    # if check_max(convert_results(results)):
+    #     return 0
+    # else:
+    #     return game_number
 
 # each game is a semicolon-separated string of subsets
 # each subset is a comma-separated strong of number-color pairs
@@ -44,11 +45,27 @@ def check_max(subsets):
     return fault
 
 
+def get_min_power(subsets):
+    print(subsets)
+    min_r = 0
+    min_g = 0
+    min_b = 0
+    for s in subsets:
+        if s.get('red', 0) > min_r:
+            min_r = s['red']
+        if s.get('green', 0) > min_g:
+            min_g = s['green']
+        if s.get('blue', 0) > min_b:
+            min_b = s['blue']
+    print(f"min_r: {min_r}, min_g: {min_g}, min_b: {min_b}")
+    return min_r * min_g * min_b
+
+
 def convert_results(results):
     print(f"extracting counts from {results}")
     subsets = []
     for subset in results:
-        samples = dict((color, num) for num, color in [tuple(
+        samples = dict((color, int(num)) for num, color in [tuple(
             s.split(' ')) for s in [s.strip() for s in subset.split(',')]])
         subsets.append(samples)
     return subsets
