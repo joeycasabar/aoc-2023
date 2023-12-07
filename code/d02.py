@@ -34,17 +34,25 @@ def parse_game(line):
 
 
 def parse_results(results):
-    print(f"extracting counts from {results}")
+    print(f"checking game")
+    subsets = convert_results(results)
     fault = False
-    for subset in results:
-        samples = dict((color, num) for num, color in [tuple(
-            s.split(' ')) for s in [s.strip() for s in subset.split(',')]])
-        print(samples)
-        if int(samples.get('red', 0)) > max_r or int(samples.get('green', 0)) > max_g or int(samples.get('blue', 0)) > max_b:
+    for subset in subsets:
+        if int(subset.get('red', 0)) > max_r or int(subset.get('green', 0)) > max_g or int(subset.get('blue', 0)) > max_b:
             print("max exceeded!")
             fault = True
             break
     return fault
+
+
+def convert_results(results):
+    print(f"extracting counts from {results}")
+    subsets = []
+    for subset in results:
+        samples = dict((color, num) for num, color in [tuple(
+            s.split(' ')) for s in [s.strip() for s in subset.split(',')]])
+        subsets.append(samples)
+    return subsets
 
 
 with open(args.input) as input:
